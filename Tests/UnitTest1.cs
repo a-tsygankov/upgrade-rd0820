@@ -3,6 +3,7 @@ using Domain;
 using Model.Domain.Foundation.Logging;
 using ReactiveDomain.Logging;
 using ReactiveDomain.Messaging;
+using ReactiveDomain.Testing;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -36,6 +37,7 @@ namespace Tests
 
             using (var rm = new AccountRM("AccountRM", id, () => _fixture.GetListener("AccountRM")))
             {
+                //AssertEx.IsOrBecomesTrue(() => rm.AccountEvtCount == 51, 1000, $"FAILED: rm.AccountEvtCount = {rm.AccountEvtCount}");
                 Assert.True(rm.AccountEvtCount == 51, $"FAILED: rm.AccountEvtCount = {rm.AccountEvtCount}");
             }
 
