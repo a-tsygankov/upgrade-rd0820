@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace Tests
         public Guid? AccountId = null;
         public decimal? AccountBalance = null;
         public long AccountEvtCount = 0;
+
+        private ConcurrentDictionary<decimal, int> _credits = new ConcurrentDictionary<decimal, int>();
 
         private long _isUpdating;
 
@@ -59,6 +62,10 @@ namespace Tests
         {
             SetTimer();
 
+            if (_credits.ContainsKey(evt.Amount))
+                _credits[evt.Amount]++;
+            else
+                _credits[evt.Amount] = 1;
             //Thread.Sleep(15);
             AccountBalance += evt.Amount;
             Interlocked.Increment(ref AccountEvtCount);
