@@ -36,7 +36,7 @@ namespace Tests
 
             using (var rm = new AccountRM("AccountRM", id, () => _fixture.GetListener("AccountRM")))
             {
-                Assert.True(rm.AccountEvtCount == 51, $"FAILED: rm.AccountEvtCount = {rm.AccountEvtCount}");
+                Assert.True(rm.AccountEvtCount == 51, $"FAILED: rm.AccountEvtCount = {rm.AccountEvtCount}"); // checking that all events were handled during Start() call in rm
             }
 
             log.Trace("Tests1 completed");

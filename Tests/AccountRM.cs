@@ -59,7 +59,7 @@ namespace Tests
         {
             SetTimer();
 
-            Thread.Sleep(15);
+            Thread.Sleep(15); // todo: this call interrupts blockUntilLive with RD 0.8.20
             AccountBalance += evt.Amount;
             Interlocked.Increment(ref AccountEvtCount);
         }
