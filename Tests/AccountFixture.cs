@@ -5,6 +5,7 @@ using ReactiveDomain.Messaging.Bus;
 using System;
 using System.Net;
 using System.Reflection;
+using System.Threading;
 using Domain;
 using EventStore.ClientAPI;
 using ReactiveDomain.EventStore;
@@ -29,6 +30,7 @@ namespace Tests
         {
             Domain.Bootstrap.Load();
             ReactiveDomain.Foundation.BootStrap.Load();
+            Thread.Sleep(1000);
         }
 
         public AccountFixture()

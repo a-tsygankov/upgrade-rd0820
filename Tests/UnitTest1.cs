@@ -46,7 +46,7 @@ namespace Tests
         {
             var cmd = new DomainMsg.CreateAccount(id, CorrelatedMessage.NewRoot());
 
-            _fixture.MainBus.Send(cmd, "Failed to create a new Account");
+            _fixture.MainBus.TrySend(cmd, TimeSpan.FromMilliseconds(3000), TimeSpan.FromMilliseconds(3000)); //"Failed to create a new Account");
 
             log.Trace($"Account {id} created");
         }
@@ -56,7 +56,7 @@ namespace Tests
             for (var i = 0; i < n; i++)
             {
                 var cmd = new DomainMsg.CreditAccount(id, 100, CorrelatedMessage.NewRoot());
-                if (!_fixture.MainBus.TrySendAsync(cmd))
+                if (!_fixture.MainBus.TrySend(cmd, TimeSpan.FromMilliseconds(3000), TimeSpan.FromMilliseconds(3000)))
                     throw new Exception("Failed to credit account");
             }
             log.Trace($"{n} events were loaded to account {id}");

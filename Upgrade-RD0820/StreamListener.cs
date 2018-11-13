@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Model.Domain.Foundation;
 using Model.Domain.Foundation.Logging;
 using ReactiveDomain;
 using ReactiveDomain.Foundation;
@@ -70,7 +71,7 @@ namespace Model.Foundation
         /// <param name="millisecondsTimeout"></param>
         public void Start(
             Type tMessage,
-            long? checkpoint = null,
+            int? checkpoint = null,
             bool blockUntilLive = false,
             int millisecondsTimeout = 1000)
         {
@@ -95,7 +96,7 @@ namespace Model.Foundation
         /// <param name="blockUntilLive"></param>
         /// <param name="timeout">timeout in milliseconds default = 1000</param>
         public void Start<TAggregate>(
-            long? checkpoint = null,
+            int? checkpoint = null,
             bool blockUntilLive = false,
             int timeout = 1000) where TAggregate : class, IEventSource
         {
@@ -117,7 +118,7 @@ namespace Model.Foundation
         /// <param name="timeout">timeout in milliseconds default = 1000</param>
         public void Start<TAggregate>(
             Guid id,
-            long? checkpoint = null,
+            int? checkpoint = null,
             bool blockUntilLive = false,
             int timeout = 1000) where TAggregate : class, IEventSource
         {
@@ -138,7 +139,7 @@ namespace Model.Foundation
         /// <param name="timeout">timeout in milliseconds default = 1000</param>
         public virtual void Start(
             string streamName,
-            long? checkpoint = null,
+            int? checkpoint = null,
             bool blockUntilLive = false,
             int timeout = 1000)
         {
@@ -191,7 +192,7 @@ namespace Model.Foundation
             _subscription =
                 SubscribeToStreamFrom(
                     StreamName,
-                    Position,
+                    (int?)Position,
                     true,
                     eventAppeared: GotEvent,
                     liveProcessingStarted: () =>
@@ -207,7 +208,7 @@ namespace Model.Foundation
 
         public IDisposable SubscribeToStreamFrom(
             string stream,
-            long? lastCheckpoint,
+            int? lastCheckpoint,
             bool resolveLinkTos,
             Action<Message> eventAppeared,
             Action liveProcessingStarted = null,

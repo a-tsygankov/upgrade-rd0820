@@ -7,11 +7,11 @@ namespace Model.Domain.Foundation
 {
     public class StreamStoreMsgs
     {
-        //public class CatchupSubscriptionBecameLive : Message
-        //{
-        //    public CatchupSubscriptionBecameLive()
-        //    { }
-        //}
+        public class CatchupSubscriptionBecameLive : Message
+        {
+            public CatchupSubscriptionBecameLive()
+            { }
+        }
 
         public class SubscriptionDropped : Message
         {

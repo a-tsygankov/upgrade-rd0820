@@ -7,8 +7,8 @@
 
   <ItemGroup>
     <PackageReference Include="NLog" Version="4.5.11" />
-    <PackageReference Include="ReactiveDomain.Foundation" Version="0.8.20" />
-    <PackageReference Include="ReactiveDomain.Testing" Version="0.8.20" />
+    <PackageReference Include="ReactiveDomain.Foundation" Version="0.8.17" />
+    <PackageReference Include="ReactiveDomain.Testing" Version="0.8.17" />
   </ItemGroup>
 
   <ItemGroup>

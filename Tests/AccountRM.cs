@@ -30,7 +30,9 @@ namespace Tests
 
         public bool IsUpdating => _isUpdating > 0;
 
-        public AccountRM(string name, Guid id, Func<IListener> getListener) : base(name, getListener)
+        public AccountRM(string name, Guid id, Func<IListener> getListener) 
+            //: base(name, getListener) // rd 0.8.20
+            : base(getListener)  // rd 0.8.17
         {
             log.Trace($"Constructing for account {id}");
 
@@ -59,7 +61,7 @@ namespace Tests
         {
             SetTimer();
 
-            Thread.Sleep(15);
+            Thread.Sleep(10);
             AccountBalance += evt.Amount;
             Interlocked.Increment(ref AccountEvtCount);
         }
