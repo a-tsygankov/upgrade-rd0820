@@ -250,6 +250,7 @@ namespace Model.Foundation
         {
             Interlocked.Increment(ref _msgCount);
             if (@event != null) _bus.Publish(@event);
+            _log.Trace($"got event ${_msgCount}");
         }
 
         #region Implementation of IDisposable
