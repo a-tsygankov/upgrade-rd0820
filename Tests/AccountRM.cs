@@ -59,7 +59,7 @@ namespace Tests
         {
             SetTimer();
 
-            Thread.Sleep(15);
+            //Thread.Sleep(15);
             AccountBalance += evt.Amount;
             Interlocked.Increment(ref AccountEvtCount);
         }
