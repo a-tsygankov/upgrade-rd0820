@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!--<OutputType>Exe</OutputType>-->
+    <TargetFramework>net472</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="4.5.11" />
+    <PackageReference Include="ReactiveDomain.Foundation" Version="0.8.20" />
+    <PackageReference Include="ReactiveDomain.Testing" Version="0.8.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ReadModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
