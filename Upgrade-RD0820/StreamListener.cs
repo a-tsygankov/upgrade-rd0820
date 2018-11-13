@@ -167,7 +167,10 @@ namespace Model.Foundation
             }
 
             if (blockUntilLive)
+            {
+                _log.Trace("Still blocked");
                 _liveLock.Wait(timeout);
+            }
         }
 
         private void SubscriptionDropped(SubscriptionDropReason reason, Exception exception)
@@ -249,6 +252,7 @@ namespace Model.Foundation
         {
             Interlocked.Increment(ref _msgCount);
             if (@event != null) _bus.Publish(@event);
+            _log.Trace($"got event #{_msgCount}");
         }
 
         #region Implementation of IDisposable
