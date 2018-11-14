@@ -55,6 +55,8 @@ namespace Tests
             AccountId = evt.Id;
             AccountBalance = 0;
             Interlocked.Increment(ref AccountEvtCount);
+            log.Trace($"handled event #{AccountEvtCount}");
+
         }
 
         public void Handle(DomainMsg.AccountCredited evt)
@@ -64,6 +66,7 @@ namespace Tests
             Thread.Sleep(15); // todo: this call interrupts blockUntilLive with RD 0.8.20
             AccountBalance += evt.Amount;
             Interlocked.Increment(ref AccountEvtCount);
+            log.Trace($"handled event #{AccountEvtCount}");
         }
 
         public void Handle(DomainMsg.AccountDebited evt)
