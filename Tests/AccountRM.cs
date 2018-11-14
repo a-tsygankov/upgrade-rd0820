@@ -12,7 +12,7 @@ using ReactiveDomain.Messaging.Bus;
 
 namespace Tests
 {
-    public class AccountRM : ReadModelBase,
+    public class AccountRM : SyncReadModel,
         IHandle<DomainMsg.AccountCreated>,
         IHandle<DomainMsg.AccountCredited>,
         IHandle<DomainMsg.AccountDebited>
@@ -44,6 +44,8 @@ namespace Tests
                 millisecondsTimeout: 2000);
             log.Trace($"Start() unblocked: AccountId={AccountId}, AccountBalance={AccountBalance}, AccountEvtCount={AccountEvtCount}");
 
+            WaitUntil(name);
+
         }
 
         public void Handle(DomainMsg.AccountCreated evt)
@@ -53,15 +55,18 @@ namespace Tests
             AccountId = evt.Id;
             AccountBalance = 0;
             Interlocked.Increment(ref AccountEvtCount);
+            log.Trace($"handled event #{AccountEvtCount}, type={evt.GetType().Name}");
         }
 
         public void Handle(DomainMsg.AccountCredited evt)
         {
             SetTimer();
 
-            Thread.Sleep(15); // todo: this call interrupts blockUntilLive with RD 0.8.20
+            Thread.Sleep(50); // todo: this call interrupts blockUntilLive with RD 0.8.20
             AccountBalance += evt.Amount;
             Interlocked.Increment(ref AccountEvtCount);
+            log.Trace($"handled event #{AccountEvtCount}, type={evt.GetType().Name}");
+
         }
 
         public void Handle(DomainMsg.AccountDebited evt)
@@ -71,6 +76,8 @@ namespace Tests
             AccountBalance += evt.Amount;
 
             Interlocked.Increment(ref AccountEvtCount);
+            log.Trace($"handled event #{AccountEvtCount}, type={evt.GetType().Name}");
+
         }
 
         protected void SetTimer()

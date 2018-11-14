@@ -159,7 +159,7 @@ namespace Model.Foundation
                         eventAppeared: GotEvent,
                         liveProcessingStarted: () =>
                         {
-                            _bus.Publish(new StreamStoreMsgs.CatchupSubscriptionBecameLive());
+                            _bus.Publish(new Domain.Foundation.StreamStoreMsgs.ListenerBecameLive(ListenerName));
                             _liveLock.Set();
                         },
                         subscriptionDropped: (reason, exception) => SubscriptionDropped(reason, exception));
@@ -196,7 +196,7 @@ namespace Model.Foundation
                     eventAppeared: GotEvent,
                     liveProcessingStarted: () =>
                     {
-                        _bus.Publish(new StreamStoreMsgs.CatchupSubscriptionBecameLive());
+                        _bus.Publish(new Domain.Foundation.StreamStoreMsgs.ListenerBecameLive(ListenerName));
                         _liveLock.Set();
                     },
                     subscriptionDropped: (r, e) => SubscriptionDropped(reason, exception));
@@ -248,7 +248,12 @@ namespace Model.Foundation
         protected virtual void GotEvent(Message @event)
         {
             Interlocked.Increment(ref _msgCount);
-            if (@event != null) _bus.Publish(@event);
+            if (@event != null)
+            {
+                _bus.Publish(@event);
+                _log.Trace($"handled event #{_msgCount}, type={@event.GetType().Name}");
+            }
+
         }
 
         #region Implementation of IDisposable
