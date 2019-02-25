@@ -60,7 +60,7 @@ namespace Tests
             SetTimer();
             log.Trace($"handling event #{AccountEvtCount+1}");
 
-            //Thread.Sleep(15);
+            Thread.Sleep(15);
             AccountBalance += evt.Amount;
             Interlocked.Increment(ref AccountEvtCount);
         }
